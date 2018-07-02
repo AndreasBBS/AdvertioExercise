@@ -2,7 +2,7 @@ import unittest
 from Footer import Footer
 from FooterExceptions import FooterError
 
-class TestUnsucessfulFooter(unittest.TestCase):
+class TestIncorrectFooterUse(unittest.TestCase):
     """Tests the Footer class for incorrect input values and method use"""
 
     def testNegativeTotalPages(self):
@@ -93,7 +93,7 @@ class TestUnsucessfulFooter(unittest.TestCase):
         with self.assertRaises(FooterError):
             Footer(1, 0, 0).setCurrentPage(0)
 
-class TestSucessfulFooter(unittest.TestCase):
+class TestFooter(unittest.TestCase):
     """Tests the Footer class for the expected behavior when the correct usage of the class is
     made"""
 
@@ -117,7 +117,7 @@ class TestSucessfulFooter(unittest.TestCase):
     def testDefaulPrintB0A1(self):
         """Tests the Footer print method for an instance with total 10 pages, boundaries = 0,
         around = 1, current page = 1"""
-        self.assertEqual(Footer(10, 0, 1).print(), "1 2 ... ")
+        self.assertEqual(Footer(10, 0, 1).print(), "1 2 ...")
 
     def testDefaultPrintB1A1(self):
         """Tests the Footer print method for an instance with total 10 pages, boundaries = 1,
@@ -142,85 +142,119 @@ class TestSucessfulFooter(unittest.TestCase):
     def testCP3B3A1(self):
         """Tests the Footer print method for an instance with total 10 pages, boundaries = 3,
         around = 1, current page = 3"""
-        self.assertEqual(Footer(10, 3, 1).setCurrentPage(3).print(), "1 2 3 4 ... 8 9 10")
+        footer = Footer(10, 3, 1)
+        footer.setCurrentPage(3)
+        self.assertEqual(footer.print(), "1 2 3 4 ... 8 9 10")
 
     def testPrintCP5B0A0(self):
         """Tests the Footer print method for an instance with total 10 pages, boundaries = 0,
         around = 0, current page = 5"""
-        self.assertEqual(Footer(10, 0, 0).setCurrentPage(5).print(), "... 5 ...")
+        footer = Footer(10, 0, 0)
+        footer.setCurrentPage(5)
+        self.assertEqual(footer.print(), "... 5 ...")
 
     def testPrintCP5B1A0(self):
         """Tests the Footer print method for an instance with total 10 pages, boundaries = 1,
         around = 0, current page = 5"""
-        self.assertEqual(Footer(10, 1, 0).setCurrentPage(5).print(), "1 ... 5 ... 10")
+        footer = Footer(10, 1, 0)
+        footer.setCurrentPage(5)
+        self.assertEqual(footer.print(), "1 ... 5 ... 10")
 
     def testPrintCP5B0A1(self):
         """Tests the Footer print method for an instance with total 10 pages, boundaries = 0,
         around = 1, current page = 5"""
-        self.assertEqual(Footer(10, 0, 1).setCurrentPage(5).print(), "... 4 5 6 ...")
+        footer = Footer(10, 0, 1)
+        footer.setCurrentPage(5)
+        self.assertEqual(footer.print(), "... 4 5 6 ...")
 
     def testPrintCP5B1A1(self):
         """Tests the Footer print method for an instance with total 10 pages, boundaries = 1,
         around = 1, current page = 5"""
-        self.assertEqual(Footer(10, 1, 1).setCurrentPage(5).print(), "1 ... 4 5 6 ... 10")
+        footer = Footer(10, 1, 1)
+        footer.setCurrentPage(5)
+        self.assertEqual(footer.print(), "1 ... 4 5 6 ... 10")
 
     def testPrintCP5B3A1(self):
         """Tests the Footer print method for an instance with total 10 pages, boundaries = 3,
         around = 1, current page = 5"""
-        self.assertEqual(Footer(10, 3, 1).setCurrentPage(5).print(), "1 2 3 4 5 6 ... 8 9 10")
+        footer = Footer(10, 3, 1)
+        footer.setCurrentPage(5)
+        self.assertEqual(footer.print(), "1 2 3 4 5 6 ... 8 9 10")
 
     def testPrintCP5B3A2(self):
         """Tests the Footer print method for an instance with total 10 pages, boundaries = 3,
         around = 2, current page = 5"""
-        self.assertEqual(Footer(10, 3, 2).setCurrentPage(5).print(), "1 2 3 4 5 6 7 8 9 10")
+        footer = Footer(10, 3, 2)
+        footer.setCurrentPage(5)
+        self.assertEqual(footer.print(), "1 2 3 4 5 6 7 8 9 10")
 
     def testPrintCP5B4A4(self):
         """Tests the Footer print method for an instance with total 10 pages, boundaries = 4,
         around = 4, current page = 5"""
-        self.assertEqual(Footer(10, 4, 4).setCurrentPage(5).print(), "1 2 3 4 5 6 7 8 9 10")
+        footer = Footer(10, 4, 4)
+        footer.setCurrentPage(5)
+        self.assertEqual(footer.print(), "1 2 3 4 5 6 7 8 9 10")
 
     def testPrintCP6B3A1(self):
         """Tests the Footer print method for an instance with total 10 pages, boundaries = 3,
         around = 1, current page = 6"""
-        self.assertEqual(Footer(10, 3, 1).setCurrentPage(6).print(), "1 2 3 ... 5 6 7 8 9 10")
+        footer = Footer(10, 3, 1)
+        footer.setCurrentPage(6)
+        self.assertEqual(footer.print(), "1 2 3 ... 5 6 7 8 9 10")
 
     def testPrintCP10B0A0(self):
         """Tests the Footer print method for an instance with total 10 pages, boundaries = 0,
         around = 0, current page = 10"""
-        self.assertEqual(Footer(10, 0, 0).setCurrentPage(10).print(), "... 10")
+        footer = Footer(10, 0, 0)
+        footer.setCurrentPage(10)
+        self.assertEqual(footer.print(), "... 10")
 
     def testPrintCP10B1A0(self):
         """Tests the Footer print method for an instance with total 10 pages, boundaries = 1,
         around = 0, current page = 10"""
-        self.assertEqual(Footer(10, 1, 0).setCurrentPage(10).print(), "1 ... 10")
+        footer = Footer(10, 1, 0)
+        footer.setCurrentPage(10)
+        self.assertEqual(footer.print(), "1 ... 10")
 
     def testPrintCP10B0A1(self):
         """Tests the Footer print method for an instance with total 10 pages, boundaries = 0,
         around = 1, current page = 10"""
-        self.assertEqual(Footer(10, 0, 1).setCurrentPage(10).print(), "... 9 10")
+        footer = Footer(10, 0, 1)
+        footer.setCurrentPage(10)
+        self.assertEqual(footer.print(), "... 9 10")
 
     def testPrintCP10B1A1(self):
         """Tests the Footer print method for an instance with total 10 pages, boundaries = 1,
         around = 1, current page = 10"""
-        self.assertEqual(Footer(10, 1, 1).setCurrentPage(10).print(), "1 ... 9 10")
+        footer = Footer(10, 1, 1)
+        footer.setCurrentPage(10)
+        self.assertEqual(footer.print(), "1 ... 9 10")
 
     def testPrintCP10B2A1(self):
         """Tests the Footer print method for an instance with total 10 pages, boundaries = 2,
         around = 1, current page = 10"""
-        self.assertEqual(Footer(10, 2, 1).setCurrentPage(10).print(), "1 2 ... 9 10")
+        footer = Footer(10, 2, 1)
+        footer.setCurrentPage(10)
+        self.assertEqual(footer.print(), "1 2 ... 9 10")
 
     def testPrintCP10B1A2(self):
         """Tests the Footer print method for an instance with total 10 pages, boundaries = 2,
         around = 1, current page = 10"""
-        self.assertEqual(Footer(10, 1, 2).setCurrentPage(10).print(), "1 ... 8 9 10")
+        footer = Footer(10, 1, 2)
+        footer.setCurrentPage(10)
+        self.assertEqual(footer.print(), "1 ... 8 9 10")
 
     def testPrintCP10B3A1(self):
         """Tests the Footer print method for an instance with total 10 pages, boundaries = 3,
         around = 1, current page = 10"""
-        self.assertEqual(Footer(10, 3, 1).setCurrentPage(10).print(), "1 2 3 ... 8 9 10")
+        footer = Footer(10, 3, 1)
+        footer.setCurrentPage(10)
+        self.assertEqual(footer.print(), "1 2 3 ... 8 9 10")
 
     def testPrintCP8B3A1(self):
         """Tests the Footer print method for an instance with total 10 pages, boundaries = 3,
         around = 1, current page = 8"""
-        self.assertEqual(Footer(10, 3, 1).setCurrentPage(8).print(), "1 2 3 ... 7 8 9 10")
+        footer = Footer(10, 3, 1)
+        footer.setCurrentPage(8)
+        self.assertEqual(footer.print(), "1 2 3 ... 7 8 9 10")
     
